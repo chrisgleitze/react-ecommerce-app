@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import mapStateToProps from '../redux/mapStateToProps'
+import mapDispatchToProps from '../redux/mapDispatchToProps'
 
 function Table(props) {
 
@@ -8,6 +11,111 @@ function Table(props) {
     * - formular: Formularwerte
     * - hinzufuegenZumWarenkorb - zu übergeben: Produkt-Objekt
     */
+
+    const SPALTEN = [
+        [
+          [
+              {
+                  field: "titel",
+                  name: "Titel"
+              },
+              {
+                  field: "jahr",
+                  name: "Jahr"
+              },
+              {
+                  field: "publisher",
+                  name: "Publisher"
+              },
+              {
+                  field: "preis",
+                  name: "Preis"
+              }
+          ],
+          [
+              {
+                  field: "autor",
+                  name: "Autor"
+              },
+              {
+                  field: "titel",
+                  name: "Titel"
+              },
+              {
+                  field: "jahr",
+                  name: "Jahr"
+              },
+              {
+                  field: "seiten",
+                  name: "Seiten"
+              },
+              {
+                  field: "verlag",
+                  name: "Verlag"
+              },
+              {
+                  field: "preis",
+                  name: "Preis"
+              }
+          ],
+          [
+              {
+                  field: "autor",
+                  name: "Autor"
+              },
+              {
+                  field: "titel",
+                  name: "Titel"
+              },
+              {
+                  field: "jahr",
+                  name: "Jahr"
+              },
+              {
+                  field: "laenge",
+                  name: "Länge"
+              },
+              {
+                  field: "verlag",
+                  name: "Verlag"
+              },
+              {
+                  field: "preis",
+                  name: "Preis"
+              }
+          ]
+        ],
+        [
+          [
+              {
+                  field: "titel",
+                  name: "Titel"
+              },
+              {
+                  field: "hersteller",
+                  name: "Hersteller"
+              },
+              {
+                  field: "preis",
+                  name: "Preis"
+              }
+          ],
+          [
+              {
+                  field: "titel",
+                  name: "Titel"
+              },
+              {
+                  field: "beschreibung",
+                  name: "Beschreibung"
+              },
+              {
+                  field: "preis",
+                  name: "Preis"
+              }
+          ]
+        ]
+    ]
 
     return (
         <>
@@ -190,4 +298,4 @@ function Table(props) {
     );
 }
 
-export default Table;
+export default connect(mapStateToProps, mapDispatchToProps) (Table);

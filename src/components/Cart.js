@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import mapStateToProps from '../redux/mapStateToProps'
+import mapDispatchToProps from '../redux/mapDispatchToProps'
 
 function Cart(props) {
 
@@ -45,4 +48,4 @@ function Cart(props) {
     );
 }
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps) (Cart);
