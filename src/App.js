@@ -8,6 +8,7 @@ import Select from './components/Select'
 import Table from './components/Table';
 import Cart from './components/Cart';
 import Product from './components/Product';
+import Admin from './components/Admin';
 
 function App(props) {
 
@@ -60,12 +61,14 @@ function App(props) {
       <nav className="clearfix">
         <NavLink to="/"><div>Shop</div></NavLink>
         <NavLink to="/cart"><div>Warenkorb ({props.warenkorb.length})</div></NavLink>
+        <NavLink to="/admin"><div>Admin</div></NavLink>
       </nav>
       <main>
         <Routes>
           <Route path="/" element={<><Select /><Table /></>} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
     </div>

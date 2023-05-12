@@ -12,29 +12,41 @@ function Select(props) {
     * - aendereKategorie: Funktion
     */
 
+    /* const SUBCAT_ARRAY =  props.subcats.filter((ele) => {
+        return ele.maincat === props.formular.hauptkategorie
+    })
+    console.log(SUBCAT_ARRAY) */
+
     return (
         <>
             <h2>Willkommen zum Shop!</h2>
             <form>
-                <select value={props.formular.hauptkategorie} name="hauptkategorie"
+				<select value={props.formular.hauptkategorie} name="hauptkategorie"
                     onChange={props.aendereKategorie}>
-                    <option value="-1">Bitte Bereich wählen</option>
+					<option value="-1">Bitte Bereich wählen</option>
                     {
-                        props.produkte.map((ele, index) => {
-                            /* ele = Objekt (Hauptkategorie) */
-                            return <option value={index}>{ele.name}</option>
+                        props.maincats.map((ele, index) => {
+                            /* ele = String (Hauptkategorie) */
+                            return <option value={index}>{ele}</option>
                         })
                     }
-                </select>
-                {
-                    props.formular.hauptkategorie !== "-1" &&
+				</select>
+				{
+                    props.formular.hauptkategorie != "-1" &&
                     <select value={props.formular.unterkategorie} name="unterkategorie"
                         onChange={props.aendereKategorie}>
                         <option value="-1">Bitte wählen</option>
                         {
-                            props.produkte[props.formular.hauptkategorie].gruppe.map((ele, index) => {
+                            /* props.SUBCAT_ARRAY.map((ele) => {
+                                return <option value={ele.subcat}>{ele.name}</option>
+                            }) */
+                            props.subcats.map((ele) => {
                                 /* ele = Objekt (Unterkategorie) */
-                                return <option value={index}>{ele.name}</option>
+                                /* if (ele.maincat === props.formular.hauptkategorie) {
+                                    return <option value={ele.subcat}>{ele.name}</option>
+                                } */
+                                return (ele.maincat === props.formular.hauptkategorie && 
+                                    <option value={ele.subcat}>{ele.name}</option>)
                             })
                         }
                     </select>
@@ -44,4 +56,4 @@ function Select(props) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Select);
+export default connect(mapStateToProps, mapDispatchToProps) (Select);

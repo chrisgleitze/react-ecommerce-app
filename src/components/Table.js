@@ -119,14 +119,18 @@ function Table(props) {
         ]
     ]
 
+    const aktuelleUnterkategorie = props.subcats.find((ele) => {
+        return ele.maincat === props.formular.hauptkategorie &&
+            ele.subcat === props.formular.unterkategorie
+    })
+
     return (
         <>
             {
                 props.formular.hauptkategorie != "-1" &&
                 props.formular.unterkategorie != "-1" &&
                 <div>
-                    <h2>{props.produkte[props.formular.hauptkategorie]
-                        .gruppe[props.formular.unterkategorie].name}</h2>
+                    <h2>{aktuelleUnterkategorie && aktuelleUnterkategorie.name}</h2>
                     <table>
                         <thead>
                             <tr>
@@ -140,11 +144,11 @@ function Table(props) {
                         </thead>
                         <tbody>
                             {
-                                props.produkte[props.formular.hauptkategorie]
-                                .gruppe[props.formular.unterkategorie]
-                                .artikel.map((ele) => {
+                                props.artikel.map((ele) => {
                                      /* ele = Objekt (Produkt) */
-                                    return (<tr>
+                                    return ele.maincat === props.formular.hauptkategorie &&
+                                        ele.subcat === props.formular.unterkategorie &&
+                                        (<tr>
                                             {
                                                 SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
                                                     return <td>{ele[col.field]}{col.field === "preis" && " EUR"}</td>
