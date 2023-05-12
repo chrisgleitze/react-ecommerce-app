@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import mapStateToProps from '../redux/mapStateToProps'
 import mapDispatchToProps from '../redux/mapDispatchToProps'
-import { useNavigate } from 'react-router-dom'
 
 function Table(props) {
 
@@ -10,9 +9,8 @@ function Table(props) {
     * props:
     * - produkte: Produktdaten
     * - formular: Formularwerte
+    * - hinzufuegenZumWarenkorb - zu übergeben: Produkt-Objekt
     */
-
-    const navigate = useNavigate()
 
     const SPALTEN = [
         [
@@ -20,7 +18,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -28,7 +26,7 @@ function Table(props) {
               {
                   field: "publisher",
                   name: "Publisher"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -42,7 +40,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -54,7 +52,7 @@ function Table(props) {
               {
                   field: "verlag",
                   name: "Verlag"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -68,7 +66,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -80,7 +78,7 @@ function Table(props) {
               {
                   field: "verlag",
                   name: "Verlag"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -92,11 +90,11 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "hersteller",
                   name: "Hersteller"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -106,11 +104,11 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "beschreibung",
                   name: "Beschreibung"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -119,45 +117,34 @@ function Table(props) {
         ]
     ]
 
-    const aktuelleUnterkategorie = props.subcats.find((ele) => {
-        return ele.maincat === props.formular.hauptkategorie &&
-            ele.subcat === props.formular.unterkategorie
-    })
-
     return (
         <>
+            {/* SPIELE */}
             {
-                props.formular.hauptkategorie != "-1" &&
-                props.formular.unterkategorie != "-1" &&
+                props.formular.hauptkategorie === "0" &&
+                props.formular.unterkategorie === "0" &&
                 <div>
-                    <h2>{aktuelleUnterkategorie && aktuelleUnterkategorie.name}</h2>
+                    <h2>Spiele</h2>
                     <table>
                         <thead>
                             <tr>
-                                {
-                                    SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
-                                        return <th>{col.name}</th>
-                                    })
-                                }
+                                <th>Titel</th>
+                                <th>Preis</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                props.artikel.map((ele) => {
+                                props.produkte[props.formular.hauptkategorie]
+                                .gruppe[props.formular.unterkategorie]
+                                .artikel.map((ele) => {
                                      /* ele = Objekt (Produkt) */
-                                    return ele.maincat === props.formular.hauptkategorie &&
-                                        ele.subcat === props.formular.unterkategorie &&
-                                        (<tr>
-                                            {
-                                                SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
-                                                    return <td>{ele[col.field]}{col.field === "preis" && " EUR"}</td>
-                                                })
-                                            }
-                                            <td onClick={() => {
-                                                props.produktAuswaehlen(ele)
-                                                navigate("/product")
-                                            }}>Details</td>
+                                    return (<tr>
+                                        <td>{ele.titel}</td>
+                                        <td>{ele.preis} EUR</td>
+                                        <td onClick={() => {
+                                            props.hinzufuegenZumWarenkorb(ele)
+                                        }}>Hinzufügen</td>
                                     </tr>)
                                 })
                             }
@@ -166,6 +153,147 @@ function Table(props) {
                 </div>
             }
 
+            {/* BÜCHER */}
+            {
+                props.formular.hauptkategorie === "0" &&
+                props.formular.unterkategorie === "1" &&
+                <div>
+                    <h2>Bücher</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Autor</th>
+                                <th>Titel</th>
+                                <th>Preis</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.produkte[props.formular.hauptkategorie]
+                                .gruppe[props.formular.unterkategorie]
+                                .artikel.map((ele) => {
+                                     /* ele = Objekt (Produkt) */
+                                    return (<tr>
+                                        <td>{ele.autor}</td>
+                                        <td>{ele.titel}</td>
+                                        <td>{ele.preis} EUR</td>
+                                        <td onClick={() => {
+                                            props.hinzufuegenZumWarenkorb(ele)
+                                        }}>Hinzufügen</td>
+                                    </tr>)
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            {/* AUDIO-BOOKS */}
+            {
+                props.formular.hauptkategorie === "0" &&
+                props.formular.unterkategorie === "2" &&
+                <div>
+                    <h2>Audio-Books</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Autor</th>
+                                <th>Titel</th>
+                                <th>Preis</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.produkte[props.formular.hauptkategorie]
+                                .gruppe[props.formular.unterkategorie]
+                                .artikel.map((ele) => {
+                                     /* ele = Objekt (Produkt) */
+                                    return (<tr>
+                                        <td>{ele.autor}</td>
+                                        <td>{ele.titel}</td>
+                                        <td>{ele.preis} EUR</td>
+                                        <td onClick={() => {
+                                            props.hinzufuegenZumWarenkorb(ele)
+                                        }}>Hinzufügen</td>
+                                    </tr>)
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            {/* SCHUHE */}
+            {
+                props.formular.hauptkategorie === "1" &&
+                props.formular.unterkategorie === "0" &&
+                <div>
+                    <h2>Schuhe</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Preis</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.produkte[props.formular.hauptkategorie]
+                                .gruppe[props.formular.unterkategorie]
+                                .artikel.map((ele) => {
+                                     /* ele = Objekt (Produkt) */
+                                    return (<tr>
+                                        <td>{ele.titel}</td>
+                                        <td>{ele.preis} EUR</td>
+                                        <td onClick={() => {
+                                            props.hinzufuegenZumWarenkorb(ele)
+                                        }}>Hinzufügen</td>
+                                    </tr>)
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            {/* GERÄTE */}
+            {
+                props.formular.hauptkategorie === "1" &&
+                props.formular.unterkategorie === "1" &&
+                <div>
+                    <h2>Geräte</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Beschreibung</th>
+                                <th>Preis</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                props.produkte[props.formular.hauptkategorie]
+                                .gruppe[props.formular.unterkategorie]
+                                .artikel.map((ele) => {
+                                     /* ele = Objekt (Produkt) */
+                                    return (<tr>
+                                        <td>{ele.titel}</td>
+                                        <td>{ele.beschreibung}</td>
+                                        <td>{ele.preis} EUR</td>
+                                        <td onClick={() => {
+                                            props.hinzufuegenZumWarenkorb(ele)
+                                        }}>Hinzufügen</td>
+                                    </tr>)
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
         </>
     );
 }

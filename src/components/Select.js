@@ -12,11 +12,6 @@ function Select(props) {
     * - aendereKategorie: Funktion
     */
 
-    /* const SUBCAT_ARRAY =  props.subcats.filter((ele) => {
-        return ele.maincat === props.formular.hauptkategorie
-    })
-    console.log(SUBCAT_ARRAY) */
-
     return (
         <>
             <h2>Willkommen zum Shop!</h2>
@@ -25,9 +20,9 @@ function Select(props) {
                     onChange={props.aendereKategorie}>
 					<option value="-1">Bitte Bereich wählen</option>
                     {
-                        props.maincats.map((ele, index) => {
-                            /* ele = String (Hauptkategorie) */
-                            return <option value={index}>{ele}</option>
+                        props.produkte.map((ele, index) => {
+                            /* ele = Objekt (Hauptkategorie) */
+                            return <option value={index}>{ele.name}</option>
                         })
                     }
 				</select>
@@ -37,16 +32,9 @@ function Select(props) {
                         onChange={props.aendereKategorie}>
                         <option value="-1">Bitte wählen</option>
                         {
-                            /* props.SUBCAT_ARRAY.map((ele) => {
-                                return <option value={ele.subcat}>{ele.name}</option>
-                            }) */
-                            props.subcats.map((ele) => {
+                            props.produkte[props.formular.hauptkategorie].gruppe.map((ele, index) => {
                                 /* ele = Objekt (Unterkategorie) */
-                                /* if (ele.maincat === props.formular.hauptkategorie) {
-                                    return <option value={ele.subcat}>{ele.name}</option>
-                                } */
-                                return (ele.maincat === props.formular.hauptkategorie && 
-                                    <option value={ele.subcat}>{ele.name}</option>)
+                                return <option value={index}>{ele.name}</option>
                             })
                         }
                     </select>
