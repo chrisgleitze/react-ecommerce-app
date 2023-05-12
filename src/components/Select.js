@@ -27,7 +27,7 @@ function Select(props) {
                     }
                 </select>
                 {
-                    props.formular.hauptkategorie != "-1" &&
+                    props.formular.hauptkategorie !== "-1" &&
                     <select value={props.formular.unterkategorie} name="unterkategorie"
                         onChange={props.aendereKategorie}>
                         <option value="-1">Bitte wählen</option>
