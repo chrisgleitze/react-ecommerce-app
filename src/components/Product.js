@@ -4,13 +4,7 @@ import mapStateToProps from '../redux/mapStateToProps'
 import mapDispatchToProps from '../redux/mapDispatchToProps'
 import { useNavigate } from 'react-router-dom'
 
-function Table(props) {
-
-    /* 
-    * props:
-    * - produkte: Produktdaten
-    * - formular: Formularwerte
-    */
+function Product(props) {
 
     const navigate = useNavigate()
 
@@ -20,7 +14,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -28,7 +22,7 @@ function Table(props) {
               {
                   field: "publisher",
                   name: "Publisher"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -42,7 +36,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -54,7 +48,7 @@ function Table(props) {
               {
                   field: "verlag",
                   name: "Verlag"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -68,7 +62,7 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "jahr",
                   name: "Jahr"
@@ -80,7 +74,7 @@ function Table(props) {
               {
                   field: "verlag",
                   name: "Verlag"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -92,11 +86,11 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "hersteller",
                   name: "Hersteller"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -106,11 +100,11 @@ function Table(props) {
               {
                   field: "titel",
                   name: "Titel"
-              },/* 
+              },
               {
                   field: "beschreibung",
                   name: "Beschreibung"
-              }, */
+              },
               {
                   field: "preis",
                   name: "Preis"
@@ -119,51 +113,38 @@ function Table(props) {
         ]
     ]
 
-    return (
+    return props.detailauswahl != null && (
         <>
-            {
-                props.formular.hauptkategorie != "-1" &&
-                props.formular.unterkategorie != "-1" &&
-                <div>
-                    <h2>{props.produkte[props.formular.hauptkategorie]
-                        .gruppe[props.formular.unterkategorie].name}</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                {
-                                    SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
-                                        return <th>{col.name}</th>
-                                    })
-                                }
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                props.produkte[props.formular.hauptkategorie]
-                                .gruppe[props.formular.unterkategorie]
-                                .artikel.map((ele) => {
-                                     /* ele = Objekt (Produkt) */
-                                    return (<tr>
-                                            {
-                                                SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
-                                                    return <td>{ele[col.field]}{col.field === "preis" && " EUR"}</td>
-                                                })
-                                            }
-                                            <td onClick={() => {
-                                                props.produktAuswaehlen(ele)
-                                                navigate("/product")
-                                            }}>Details</td>
-                                    </tr>)
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-
+            <h2>Produktdetails</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {
+                            SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
+                                return <th>{col.name}</th>
+                            })
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {
+                            SPALTEN[props.formular.hauptkategorie][props.formular.unterkategorie].map((col) => {
+                                return <td>{props.detailauswahl[col.field]}{col.field === "preis" && " EUR"}</td>
+                            })
+                        }<td onClick={() => {
+                            props.hinzufuegenZumWarenkorb(props.detailauswahl)
+                        }}>Hinzufügen</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onClick={() => {
+                props.produktAuswaehlen(null)
+                navigate(-1)
+            }}>Zurück</button>
         </>
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Table);
+export default connect(mapStateToProps,mapDispatchToProps) (Product);

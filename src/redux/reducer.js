@@ -174,12 +174,57 @@ const initState = {
             }
           ]
         }
-    ]
+    ],
+    artikel: [],
+    maincats: [],
+    subcats: [],
+    users: [],
+    detailauswahl: null
 }
 
 const reducer = (state = initState, action) => {
 
     switch(action.type) {
+
+      /********************
+       * ARTIKEL LADEN
+       ********************/
+      // action.payload = Artikel-Array
+      case ACTIONS.LOAD_ARTICLES:
+        return {
+          ...state,
+          artikel: action.payload
+        }
+
+      /********************
+       * MAINCATS LADEN
+       ********************/
+      // action.payload = maincats-Array
+      case ACTIONS.LOAD_MAINCATS:
+        return {
+          ...state,
+          maincats: action.payload
+        }
+
+      /********************
+       * SUBCATS LADEN
+       ********************/
+      // action.payload = subcats-Array
+      case ACTIONS.LOAD_SUBCATS:
+        return {
+          ...state,
+          subcats: action.payload
+        }
+
+      /********************
+       * USER LADEN
+       ********************/
+      // action.payload = users-Array
+      case ACTIONS.LOAD_USERS:
+        return {
+          ...state,
+          users: action.payload
+        }
 
       // action.payload = Formular-Objekt
       case ACTIONS.LOAD_CATEGORY:
@@ -232,6 +277,12 @@ const reducer = (state = initState, action) => {
         return {
           ...state,
           warenkorb: NEUES_ARRAY
+        }
+      
+      case ACTIONS.SET_DETAILS:
+        return {
+          ...state,
+          detailauswahl: action.payload
         }
 
       default:

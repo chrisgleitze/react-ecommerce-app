@@ -16,17 +16,17 @@ function Select(props) {
         <>
             <h2>Willkommen zum Shop!</h2>
             <form>
-				<select value={props.formular.hauptkategorie} name="hauptkategorie"
+                <select value={props.formular.hauptkategorie} name="hauptkategorie"
                     onChange={props.aendereKategorie}>
-					<option value="-1">Bitte Bereich wählen</option>
+                    <option value="-1">Bitte Bereich wählen</option>
                     {
                         props.produkte.map((ele, index) => {
                             /* ele = Objekt (Hauptkategorie) */
                             return <option value={index}>{ele.name}</option>
                         })
                     }
-				</select>
-				{
+                </select>
+                {
                     props.formular.hauptkategorie != "-1" &&
                     <select value={props.formular.unterkategorie} name="unterkategorie"
                         onChange={props.aendereKategorie}>
@@ -44,4 +44,4 @@ function Select(props) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Select);
+export default connect(mapStateToProps, mapDispatchToProps)(Select);

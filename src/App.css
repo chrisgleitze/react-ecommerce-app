@@ -4,7 +4,7 @@
   color: #122240;
   margin: 0 auto
 }
-h2 {
+h2, form {
   font-size: 90%
 }
 nav div {
@@ -24,11 +24,14 @@ nav .active div {
   display: table;
   clear: both;
 }
-
+form {
+  margin-bottom: 15px
+}
 table {
   text-align: left;
   border: 1px solid#284c94;
-  border-collapse: collapse
+  border-collapse: collapse;
+  margin-top: 15px
 }
 td, th {
   border: 1px solid#284c94;
@@ -40,6 +43,10 @@ th {
 }
 td:last-child {
   cursor: pointer
+}
+label, input {
+  display: block;
+  margin-bottom: 5px
 }
 a {
   color: #122240;
