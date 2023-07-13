@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Route, Routes, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import mapStateToProps from './redux/mapStateToProps'
